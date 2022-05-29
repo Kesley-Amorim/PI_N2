@@ -58,13 +58,12 @@ class Button {
   void update() {
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-
-      if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2) && mouseY <= Pos.y+(3*Height/2))
+      if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2) && mouseY <= Pos.y+(3*Height/2) && Display == true)
       {
-        Clicked = true;
-        ColorPressed = color(0, 200, 200);
-        println("Clicou!");
+        setColorPressed(0, 200, 200);
         render(ColorPressed);
+        Clicked = true;
+        println("Clicou!");
       } else {
         Clicked = false;
         println("Aqui!");
@@ -103,13 +102,16 @@ class Button {
     return Clicked;
   }
 
+  boolean isPressed() {
+    return Pressed;
+  }
+
   void hide() {
     Display = false;
-    render();
+    background(bg);
   }
 
   void show() {
     Display = true;
-    render();
   }
 }
