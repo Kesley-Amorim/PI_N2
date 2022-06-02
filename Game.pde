@@ -1,25 +1,34 @@
-  final static int bg = 255;
-  
-  Button b = new Button(100,100,50,50,"a",255,0,0);
-    
-  Button b2 = new Button(200,200,50,50,"b",255,0,0,false);
-  
+final static int bg = 255;
+
+Button b = new Button(100, 100, 50, 50, "a", 255, 0, 0);
+
+Button b2 = new Button(200, 200, 50, 50, "b", 255, 0, 0, false);
+
+Button marker_r = new Button(1250, 50, 50, 50, "M", 255, 0, 200);
+
+Player p = new Player(40, 40, 70, 70);
+
 void setup() {
-  size(600,600);
+  size(1366, 768);
   background(bg);
   b.render();
+  marker_r.render();
+  //p.render();
 }
- //<>//
- //<>//
-  
-void draw(){
-//b.render();
- b.update(); //<>//
 
-if(b.isClicked() == true){
+
+void draw() {
+  background(bg);
+  b.update();
+  marker_r.update();
+  p.update();
+  if (b.isClicked() == true) {
     b.hide();
-}
-  if(mousePressed == true && mouseButton == RIGHT){
-   b.show();
-  } //<>// //<>// //<>// //<>// //<>// //<>// //<>//
+  }
+
+  if (mousePressed == true && mouseButton == RIGHT) {
+    b.show();
+  }
+  b.update();
+  marker_r.update();
 }

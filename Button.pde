@@ -1,5 +1,3 @@
-
-
 class Button {
   //attrib
   PVector Pos = new PVector(0, 0);
@@ -11,7 +9,7 @@ class Button {
   Boolean Pressed = false;
   Boolean Clicked = false;
   Boolean Display = true;
-
+  
   //constructor
   Button(int x, int y, int w, int h, String t, int r, int g, int b, Boolean bool) {
 
@@ -38,27 +36,29 @@ class Button {
 
   //Getters and Setters
 
-  void setColor(int r, int g, int b) {
+  public void setColor(int r, int g, int b) {
     Color = color(r, g, b);
   }
 
-  void setColorPressed(int r, int g, int b) {
+  public void setColorPressed(int r, int g, int b) {
     ColorPressed = color(r, g, b);
   }
-  color getColor() {
+ public color getColor() {
     return Color;
   }
 
-  color getColorPressed() {
+ public color getColorPressed() {
     return ColorPressed;
   }
 
 
   //methods
   void update() {
+    render();
     if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
       Pressed = true;
-      if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2) && mouseY <= Pos.y+(3*Height/2) && Display == true)
+      if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2)
+        && mouseY <= Pos.y+(3*Height/2) && Display == true)
       {
         setColorPressed(0, 200, 200);
         render(ColorPressed);
@@ -80,6 +80,7 @@ class Button {
 
     if (Display == true) {
       fill(Color);
+      rectMode(CORNER);
       rect(Pos.x+(Width/2), Pos.y+(Height/2), Width, Height);
       fill(0);
       textAlign(CENTER, CENTER);
@@ -91,6 +92,7 @@ class Button {
 
     if (Display == true) {
       fill(c);
+      rectMode(CORNER);
       rect(Pos.x+(Width/2), Pos.y+(Height/2), Width, Height);
       fill(0);
       textAlign(CENTER, CENTER);
@@ -108,7 +110,9 @@ class Button {
 
   void hide() {
     Display = false;
+    Clicked = false;
     background(bg);
+    update();
   }
 
   void show() {
