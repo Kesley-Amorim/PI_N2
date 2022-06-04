@@ -107,6 +107,7 @@ class Button {
 
     if (mousePressed != true) {
       Pressed = false;
+      Clicked = false;
       render();
     }
   }

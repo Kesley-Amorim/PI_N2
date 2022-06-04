@@ -4,6 +4,8 @@ PImage img;
 
 PImage img2;
 
+boolean sound = true;
+
 Button som;
 
 Button b = new Button(100, 100, 50, 50, "a", 255, 0, 0);
@@ -27,26 +29,31 @@ void setup() {
 void draw() {
   image(bg, 0, 0);
   som.update();
-  
-    if (som.isClicked() == true) {
-      
-    som.setImg(img2);
-    som.update();
+
+  if (som.isClicked() == true) {
+    if (sound == true) {
+      som.setImg(img2);
+      som.update();
+      sound = false;
+    }else{
+      som.setImg(img);
+      som.update();
+      sound = true;
     }
-  
-    
-  /*
-  b.update();
-  marker_r.update();
-  p.update();
-  if (b.isClicked() == true) {
-    b.hide();
   }
 
-  if (mousePressed == true && mouseButton == RIGHT) {
-    b.show();
-  }
+  /*
   b.update();
-  marker_r.update();
-  */
+   marker_r.update();
+   p.update();
+   if (b.isClicked() == true) {
+   b.hide();
+   }
+   
+   if (mousePressed == true && mouseButton == RIGHT) {
+   b.show();
+   }
+   b.update();
+   marker_r.update();
+   */
 }
