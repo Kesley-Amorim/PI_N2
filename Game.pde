@@ -35,10 +35,12 @@ void draw() {
       som.setImg(img2);
       som.update();
       sound = false;
-    }else{
+      som.setClicked(false);
+    } else {
       som.setImg(img);
       som.update();
       sound = true;
+      som.setClicked(false);
     }
   }
 

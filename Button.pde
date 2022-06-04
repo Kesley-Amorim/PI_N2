@@ -52,6 +52,10 @@ class Button {
   public void setColor(int r, int g, int b) {
     Color = color(r, g, b);
   }
+  
+  public void setClicked(boolean a){
+    Clicked = a;
+  }
 
   public void setColorPressed(int r, int g, int b) {
     ColorPressed = color(r, g, b);
