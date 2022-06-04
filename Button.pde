@@ -1,5 +1,6 @@
 class Button {
   //attrib
+  PImage img;
   PVector Pos = new PVector(0, 0);
   float Width = 0;
   float Height = 0;
@@ -9,7 +10,8 @@ class Button {
   Boolean Pressed = false;
   Boolean Clicked = false;
   Boolean Display = true;
-  
+  Boolean Image = false;
+
   //constructor
   Button(int x, int y, int w, int h, String t, int r, int g, int b, Boolean bool) {
 
@@ -22,6 +24,17 @@ class Button {
     Text = t;
     Display = bool;
   }
+
+  Button(PImage img, int x, int y) {
+
+    this.img = img;
+    Pos.x = x;
+    Pos.y = y;
+    Width = img.width;
+    Height = img.height;
+    Image = true;
+  }
+  
 
   Button(int x, int y, int w, int h, String t, int r, int g, int b) {
 
@@ -43,50 +56,80 @@ class Button {
   public void setColorPressed(int r, int g, int b) {
     ColorPressed = color(r, g, b);
   }
- public color getColor() {
+  public color getColor() {
     return Color;
   }
 
- public color getColorPressed() {
+  public color getColorPressed() {
     return ColorPressed;
+  }
+  
+  public void setImg(PImage img){
+    this.img = img;
   }
 
 
   //methods
   void update() {
     render();
-    if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
-      Pressed = true;
-      if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2)
-        && mouseY <= Pos.y+(3*Height/2) && Display == true)
-      {
-        setColorPressed(0, 200, 200);
-        render(ColorPressed);
-        Clicked = true;
-        println("Clicou!");
-      } else {
-        Clicked = false;
-        println("Aqui!");
+    if (Image == false) {
+      if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
+        Pressed = true;
+        if (mouseX >= Pos.x+(Width/2) && mouseX <= Pos.x+(3*Width/2) && mouseY >= Pos.y+(Height/2)
+          && mouseY <= Pos.y+(3*Height/2) && Display == true)
+        {
+          setColorPressed(0, 200, 200);
+          render(ColorPressed);
+          Clicked = true;
+          println("Clicou!");
+        } else {
+          Clicked = false;
+          println("Aqui!");
+        }
+      }
+    } else {
+      if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
+        Pressed = true;
+        if (mouseX >= Pos.x - (Width/2) && mouseX <= Pos.x+Width && mouseY >= Pos.y - (Height/2)
+          && mouseY <= Pos.y+Height && Display == true)
+
+        {
+          Clicked = true;
+          println("sim");
+          render();
+        } else {
+          Clicked = false;
+          println("não");
+        }
       }
     }
 
+
     if (mousePressed != true) {
       Pressed = false;
-      render(Color);
+      render();
     }
   }
+
 
   void render() {
 
     if (Display == true) {
-      fill(Color);
-      rectMode(CORNER);
-      rect(Pos.x+(Width/2), Pos.y+(Height/2), Width, Height);
-      fill(0);
-      textAlign(CENTER, CENTER);
-      text(Text, Pos.x+Width, Pos.y+Height);
+      if (Image == false) {
+        fill(Color);
+        rectMode(CORNER);
+        rect(Pos.x+(Width/2), Pos.y+(Height/2), Width, Height);
+        fill(0);
+        textAlign(CENTER, CENTER);
+        text(Text, Pos.x+Width, Pos.y+Height);
+      } else {
+        imageMode(CENTER);
+        image(img, Pos.x, Pos.y);
+        imageMode(CORNER);
+      }
     }
   }
+
 
   void render(color c) {
 
@@ -111,7 +154,6 @@ class Button {
   void hide() {
     Display = false;
     Clicked = false;
-    background(bg);
     update();
   }
 
