@@ -19,9 +19,13 @@ void setup() {
 
 void draw() {
   background(bg);
+
+  removePoints();
+  drawPoints();
   b.update();
   marker_r.update();
   p.update();
+
   if (b.isClicked() == true) {
     b.hide();
   }

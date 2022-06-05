@@ -1,7 +1,7 @@
 class Player {
 
   //attrib
-  PVector Pos = new PVector(0, 0);
+  PVector Pos = new PVector();
   int size_x;
   int size_y;
   boolean ismoving=false;
