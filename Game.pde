@@ -1,46 +1,64 @@
 PImage bg;
 
-PImage img;
+PImage sound_icon;
 
-PImage img2;
+PImage mute_icon;
+
+PImage start_icon;
+
+PImage credits_icon;
+
+PImage exit_icon;
 
 boolean sound = true;
 
-Button som;
+Button sound_bt;
 
-Button b = new Button(100, 100, 50, 50, "a", 255, 0, 0);
+Button start_bt;
 
-Button b2 = new Button(200, 200, 50, 50, "b", 255, 0, 0, false);
+Button credits_bt;
 
-Button marker_r = new Button(1250, 50, 50, 50, "M", 255, 0, 200);
-
-Player p = new Player(40, 40, 70, 70);
+Button exit_bt;
 
 void setup() {
   bg = loadImage("bg.png");
   image(bg, 0, 0);
-  img = loadImage("volume.png");
-  img2 = loadImage("mute.png");
-  som = new Button(img, 1175, 43);
+  sound_icon = loadImage("volume.png");
+  mute_icon = loadImage("mute.png");
+  start_icon = loadImage("start.png");
+  credits_icon = loadImage("CREDITS.png");
+  exit_icon = loadImage("exit.png");
+  sound_bt = new Button(sound_icon, 1175, 43);
+  start_bt = new Button(start_icon, 683, 400);
+  credits_bt = new Button(credits_icon, 683, 650);
+  exit_bt = new Button(exit_icon, 70, 43);
   size(1366, 768);
 }
 
 
 void draw() {
   image(bg, 0, 0);
-  som.update();
+  sound_bt.update();
+  start_bt.update();
+  credits_bt.update();
+  exit_bt.update();
 
-  if (som.isClicked() == true) {
+  if(start_bt.isClicked() == true){
+   credits_bt.Display = false; 
+   start_bt.Display = false;
+  }
+
+  if (sound_bt.isClicked() == true) {
     if (sound == true) {
-      som.setImg(img2);
-      som.update();
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
       sound = false;
-      som.setClicked(false);
+      sound_bt.setClicked(false);
     } else {
-      som.setImg(img);
-      som.update();
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
       sound = true;
-      som.setClicked(false);
+      sound_bt.setClicked(false);
     }
   }
 
