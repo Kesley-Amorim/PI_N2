@@ -1,12 +1,12 @@
 class Player {
 
   //attrib
-  PVector Pos = new PVector(0, 0);
+  PVector Pos = new PVector();
   int size_x;
   int size_y;
   boolean ismoving=false;
   float ang = PI;
-  List<PVector> path = new ArrayList();
+  List<PVector> playerPath = new ArrayList();
 
   //constructor
 
@@ -40,4 +40,13 @@ class Player {
     rect(0, 0, size_x, size_y);
     popMatrix();
   }
+
+/*
+void followPath(){
+    this.playerPath = path;
+    
+    Pos.x = lerp();
+    Pos.y = lerp();
+  }
+  */
 }
