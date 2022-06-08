@@ -1,8 +1,9 @@
 import java.util.List;
 import java.util.Iterator;
 import java.util.ListIterator;
+import java.util.Arrays;
 
-final static List<PVector> marker = new ArrayList();
+static List<PVector> path = new ArrayList();
 
 
 
@@ -10,63 +11,52 @@ void mousePressed() {
   if (mousePressed == true) {
     if (mouseButton == LEFT) {
       PVector v = new PVector(mouseX, mouseY);
-      marker.add(v);
+      path.add(v);
     }
     if (mouseButton == RIGHT) {
-     marker.forEach(System.out::print);
+      path.forEach(System.out::print);
     }
   }
-}
-
-//Bresenham drawline algorithmn
-void bresenham(int x1, int y1, int x2, int y2, PImage img) {
-  int x, y;
-  float m, e, dx, dy;
-  x = x1;
-  y = y1;
-  dx = x2-x1;
-  dy = y2-y1;
-  m = dy/dx;
-  e = m - 0.5;
-  println(m, e);
-  for (int i = 1; i<=dx; i++) {
-    println(x, y);
-    PlotarPixelxy(img, x, y);
-    while (e > 0) {
-      y += 1;
-      e -= 1;
-    }
-    x+=1;
-    e+=m;
-  }
-}
-
-
-//Generic function to draw pixels in the screen
-void PlotarPixelxy(PImage image, int x, int y) {
-  int pos = x*image.width + y;
-  image.pixels[pos] = color(255, 0, 0);
 }
 
 void drawPoints() {
-  ListIterator<PVector> marker_it = marker.listIterator();
+  ListIterator<PVector> path_it = path.listIterator();
 
-  while (marker_it.hasNext()) {
-    PVector temp = marker_it.next();
+  while (path_it.hasNext()) {
+    PVector temp = path_it.next();
     circle(temp.x, temp.y, 10);
   }
 }
 
-void removePoints() {
-  ListIterator<PVector> marker_it = marker.listIterator();
-  if (marker != null) {
-    
-
-    while (marker_it.hasNext()) {
-      PVector temp = marker_it.next();
-      if (mousePressed == true && mouseButton == RIGHT) {
-          marker_it.remove();
-      }
+void drawLines(){
+  for(int i = 0; i < path.size(); i++){
+    if(i>0){
+      PVector p1 = path.get(i-1);
+      PVector p2 = path.get(i);
+     strokeWeight(5);
+     line(p1.x,p1.y,p2.x,p2.y);
     }
   }
+  strokeWeight(1);
+}
+
+
+void removePoints() {
+    if (path.size() > 0) {
+      path.remove(getLastPoint());
+  }
+}
+
+private PVector getLastPoint() {
+  return path.size() >= 1 ? (path.get(path.size()-1)) : null;
+}
+
+public List<PVector> getLineCoords() {
+  if (path.size() >=2) {
+    List<PVector> temp = new ArrayList();
+    temp.add(path.get(path.size() -2));
+    temp.add(path.get(path.size()-1));
+    return (temp);
+  }
+  return null;
 }

@@ -1,4 +1,4 @@
-final static int bg = 255;
+PImage bg;
 
 Button b = new Button(100, 100, 50, 50, "a", 255, 0, 0);
 
@@ -10,6 +10,7 @@ Player p = new Player(40, 40, 70, 70);
 
 void setup() {
   size(1366, 768);
+  bg = loadImage("bg.png");
   background(bg);
   b.render();
   marker_r.render();
@@ -20,12 +21,13 @@ void setup() {
 void draw() {
   background(bg);
 
-  removePoints();
   drawPoints();
+    drawLines();
+ //removePoints();
   b.update();
   marker_r.update();
   p.update();
-
+//println(getLineCoords());
   if (b.isClicked() == true) {
     b.hide();
   }
@@ -35,4 +37,10 @@ void draw() {
   }
   b.update();
   marker_r.update();
+}
+
+void mouseClicked(){
+   if ( mouseButton == RIGHT) {
+     removePoints();
+  }
 }
