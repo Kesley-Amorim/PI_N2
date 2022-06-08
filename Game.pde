@@ -12,6 +12,8 @@ PImage exit_icon;
 
 boolean sound = true;
 
+Enemies pendulo;
+
 Button sound_bt;
 
 Button start_bt;
@@ -33,20 +35,16 @@ void setup() {
   credits_bt = new Button(credits_icon, 683, 650);
   exit_bt = new Button(exit_icon, 70, 43);
   size(1366, 768);
+  
+  pendulo = new Enemies(683,86,683,383,50,100, 0, 100, 20, 110);
+  pendulo.render();
 }
 
 
 void draw() {
   image(bg, 0, 0);
   sound_bt.update();
-  start_bt.update();
-  credits_bt.update();
   exit_bt.update();
-
-  if(start_bt.isClicked() == true){
-   credits_bt.Display = false; 
-   start_bt.Display = false;
-  }
 
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
@@ -61,19 +59,9 @@ void draw() {
       sound_bt.setClicked(false);
     }
   }
+  
+  pendulo.update();
 
-  /*
-  b.update();
-   marker_r.update();
-   p.update();
-   if (b.isClicked() == true) {
-   b.hide();
-   }
-   
-   if (mousePressed == true && mouseButton == RIGHT) {
-   b.show();
-   }
-   b.update();
-   marker_r.update();
-   */
+  
+    
 }
