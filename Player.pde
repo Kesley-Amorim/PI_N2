@@ -43,6 +43,7 @@ class Player {
 
 
 public void followPath(){
+
     this.playerPath = path;
      List<PVector> temp = getLineCoords();
     if(playerPath.size() >= 2){
@@ -56,6 +57,7 @@ public void followPath(){
       
     }
     
+
     //Pos.x = lerp();
     //Pos.y = lerp();
 //  }
