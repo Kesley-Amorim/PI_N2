@@ -85,11 +85,9 @@ class Button {
           setColorPressed(0, 200, 200);
           render(ColorPressed);
           Clicked = true;
-          println("Clicou!");
         } else {
           Clicked = false;
-          println("Aqui!");
-        }
+        }  
       }
     } else {
       if (mousePressed == true && mouseButton == LEFT && Pressed == false) {
@@ -99,11 +97,9 @@ class Button {
 
         {
           Clicked = true;
-          println("sim");
           render();
         } else {
           Clicked = false;
-          println("não");
         }
       }
     }
