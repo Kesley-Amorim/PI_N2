@@ -41,11 +41,12 @@ class Player {
     popMatrix();
   }
 
-
+/*
 void followPath(){
     this.playerPath = path;
     
     Pos.x = lerp();
     Pos.y = lerp();
   }
+  */
 }
