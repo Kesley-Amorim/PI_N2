@@ -27,6 +27,8 @@ AudioPlayer fase3_song;
 AudioPlayer gameover_song;
 Enemies pendulo;
 Enemies pendulo1;
+Enemies pendulo2;
+Enemies pendulo3;
 Enemies triangulo;
 Enemies triangulo1;
 Button sound_bt;
@@ -77,6 +79,10 @@ void setup() {
   pendulo = new Enemies(683, 86, 683, 383, 50, 100, 0, 100, 20, 110);
   pendulo.render();
   pendulo1 = new Enemies(683, 259,683,383,50,150, 0, 100, 20, 110);
+  pendulo1.render();
+  pendulo2 = new Enemies(883, 259,883,383,50,150, 0, 100, 20, 110);
+  pendulo1.render();
+  pendulo3 = new Enemies(283, 259,283,383,50,150, 0, 100, 20, 110);
   pendulo1.render();
 }
 
@@ -338,17 +344,40 @@ void fase3Screen() {
   hard_bt.update();
   hard_bt.hide();
   //image(bg, 0, 0);
-  background(255, 0, 0);
+  background(150, 150, 0);
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
   gameUI();
-  pendulo.update();
   fase3_song.play();
   if (isWalking == true) {
     p.followPath();
     add_ctrl = false;
   }
+  
+    
+   fill(0);
+  
+  triangulo = new Enemies(460, 580, 530, 450, 590, 580);
+  triangulo.render();
+    pendulo2.update();
+  pendulo3.update();
+  
+  triangulo = new Enemies(760, 580, 1030, 500, 1090, 580);
+  triangulo.render();
+  
+  
+  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  
+   fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  gameUI();
+  
+  
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
