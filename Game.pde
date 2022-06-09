@@ -17,7 +17,10 @@ boolean sound = true;
 
 Minim gerenciador;
 AudioPlayer menu;
-AudioPlayer game;
+AudioPlayer fase1_song;
+AudioPlayer fase2_song;
+AudioPlayer fase3_song;
+AudioPlayer gameover_song;
 Enemies pendulo;
 Button sound_bt;
 Button start_bt;
@@ -55,9 +58,10 @@ void setup() {
   size(1366, 768);
   gerenciador = new Minim(this);
   menu = gerenciador.loadFile("menu.mp3");
-  game = gerenciador.loadFile("game.mp3");
-  menu.loop();
-  game.loop();  
+  fase1_song = gerenciador.loadFile("fase1.mp3");
+  fase2_song = gerenciador.loadFile("fase2.mp3");
+  fase3_song = gerenciador.loadFile("fase3.mp3");
+  gameover_song = gerenciador.loadFile("gameover.mp3");
   pendulo = new Enemies(683,86,683,383,50,100, 0, 100, 20, 110);
   pendulo.render();
 }
@@ -88,8 +92,8 @@ void initScreen() {
   start_bt.Display =true;
   credits_bt.update();
   credits_bt.Display =true;
-  game.pause();
-  
+  menu.play();
+    
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
@@ -134,6 +138,7 @@ void difficultyScreen() {
   normal_bt.Display =true;
   hard_bt.update();
   hard_bt.Display =true;
+  menu.play();
      
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
@@ -189,20 +194,20 @@ void fase1Screen(){
   sound_bt.update();
   exit_bt.update();
   pendulo.update();
-  game.play();
+  fase1_song.play();
   
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
       sound_bt.update();
+      fase1_song.mute();
       sound = false;
-      game.mute();
       sound_bt.setClicked(false);
     } else {
       sound_bt.setImg(sound_icon);
       sound_bt.update();
+      fase1_song.unmute();
       sound = true;
-      game.unmute();
       sound_bt.setClicked(false);
     }
  }
@@ -210,7 +215,7 @@ void fase1Screen(){
  if(exit_bt.isClicked() == true) {
        if (GameScreen==3) {
             retMenu();
-            game.pause();
+            fase1_song.pause();
             menu.play();
   }
  }  
@@ -226,17 +231,19 @@ void fase2Screen(){
   sound_bt.update();
   exit_bt.update();
   pendulo.update();
-  game.play();
+  fase2_song.play();
   
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
       sound_bt.update();
+      fase2_song.mute();
       sound = false;
       sound_bt.setClicked(false);
     } else {
       sound_bt.setImg(sound_icon);
       sound_bt.update();
+      fase2_song.unmute();
       sound = true;
       sound_bt.setClicked(false);
     }
@@ -245,7 +252,7 @@ void fase2Screen(){
  if(exit_bt.isClicked() == true) {
        if (GameScreen==4) {
             retMenu();
-            game.pause();
+            fase2_song.pause();
             menu.play();
   }
  }  
@@ -261,17 +268,19 @@ void fase3Screen(){
   sound_bt.update();
   exit_bt.update();
   pendulo.update();
-  game.play();
+  fase3_song.play();
   
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
       sound_bt.update();
+      fase3_song.mute();
       sound = false;
       sound_bt.setClicked(false);
     } else {
       sound_bt.setImg(sound_icon);
       sound_bt.update();
+      fase3_song.unmute();
       sound = true;
       sound_bt.setClicked(false);
     }
@@ -280,7 +289,7 @@ void fase3Screen(){
  if(exit_bt.isClicked() == true) {
        if (GameScreen==5) {
             retMenu();
-            game.pause();
+            fase3_song.pause();
             menu.play();
   }
  }  
@@ -294,16 +303,19 @@ void creditsScreen() {
   image(ra, 0, 0);
   sound_bt.update();
   exit_bt.update();
+  menu.play();
   
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
       sound_bt.update();
+      menu.mute();
       sound = false;
       sound_bt.setClicked(false);
     } else {
       sound_bt.setImg(sound_icon);
       sound_bt.update();
+      menu.unmute();
       sound = true;
       sound_bt.setClicked(false);
     }
