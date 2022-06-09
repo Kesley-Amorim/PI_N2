@@ -42,10 +42,21 @@ class Player {
   }
 
 
-void followPath(){
+public void followPath(){
     this.playerPath = path;
+     List<PVector> temp = getLineCoords();
+    if(playerPath.size() >= 2){
+      PVector c2 = temp.get(1);
+      for(int i = 0; i < playerPath.size(); i++){
+        Pos.lerp(c2,0.005);
+       
+        }
+     
+      }
+      
+    }
     
-    Pos.x = lerp();
-    Pos.y = lerp();
-  }
+    //Pos.x = lerp();
+    //Pos.y = lerp();
+//  }
 }
