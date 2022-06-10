@@ -1,4 +1,4 @@
-static float k = 0.008;
+static float k = 0.008; //<>// //<>//
 
 class Player {
 
@@ -20,14 +20,23 @@ class Player {
     this.size_y = size_y;
   }
 
-private void setPos(PVector pos){
-  this.Pos = pos;
-}
+  private void setPos(PVector pos) {
+    if (!path.isEmpty()) {
+      path.remove(0);
+      path.add(pos);
+    }
+    if (path.isEmpty() == true) {
+      path.add(pos);
+    }
+    this.Pos = pos;
+  }
 
   //methods
   void render() {
 
+
     pushMatrix();
+
     translate(Pos.x, Pos.y);
     rotate(radians(ang++));
     rectMode(CENTER);
@@ -38,52 +47,75 @@ private void setPos(PVector pos){
   void update() {
     ang += 0.01;
     pushMatrix();
+    fill(255, 0, 0);
     translate(Pos.x, Pos.y);
     rotate(radians(ang++));
     rectMode(CENTER);
     rect(0, 0, size_x, size_y);
     popMatrix();
+    fill(255, 255, 0);
   }
 
 
   public void followPath() {
-    
+
     List<PVector> temp = getLineCoords();
-    if(!temp.isEmpty()){
+    if (!temp.isEmpty()) {
       temp.get(0);
     }
     if (!path.isEmpty()) {
-      PVector prox = path.get(0); 
+      PVector prox = path.get(0);
       if (!isOnRadius(prox)) {
         Pos.lerp(prox, k+0.1);
-      }
-      else {
+      } else {
         path.remove(0);
       }
     }
   }
-  
+
   private boolean isOnRadius(PVector point) {
     final double epsilon = 0.5;
     double delta_x = Math.abs(p.Pos.x - point.x);
     double delta_y = Math.abs(p.Pos.y - point.y);
-    return delta_x <= epsilon && delta_y <= epsilon; //<>//
+    return delta_x <= epsilon && delta_y <= epsilon;
+  }
+
+  private boolean isOnCircle(PVector point) {
+    final double epsilon = 30;
+    double delta_x = Math.abs(p.Pos.x - point.x);
+    double delta_y = Math.abs(p.Pos.y - point.y);
+    return delta_x <= epsilon && delta_y <= epsilon;
   }
 }
 
-void clearPath(){
+void clearPath() {
   int i = path.size()-1;
-  while(path.size()>1){
+  while (path.size()>1) {
     path.remove(i);
     i--;
   }
- p.setPos(defaultPos);
- isWalking = false;
+  isWalking = false;
 }
 
-private Boolean isOnPlayerRadious(){
-   final double epsilon = 0.4;
-   double delta_x = Math.abs(p.Pos.x - p.size_x);
-   double delta_y = Math.abs(p.Pos.y - p.size_y);
-   return delta_x <= epsilon && delta_y <= epsilon;
+private Boolean isOnPlayerRadious() {
+  final double epsilon = 0.4;
+  double delta_x = Math.abs(p.Pos.x - p.size_x);
+  double delta_y = Math.abs(p.Pos.y - p.size_y);
+  return delta_x <= epsilon && delta_y <= epsilon;
+}
+
+void Check() {
+  if (p.isOnCircle(circulo)) {
+    if (GameScreen == 3) {
+      fase2();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if (GameScreen == 4) {
+      fase3();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if(GameScreen == 5){
+      credits();
+    }
+  }
 }

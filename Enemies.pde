@@ -7,7 +7,7 @@ class Enemies {
   int SizeCircle;
   float AngleV = 1;
   float AngleA;
-  float Gravity = 0.001;
+  float Gravity = 0.0005;
   float Force;
   
   
@@ -29,10 +29,18 @@ class Enemies {
     strokeWeight(6);//grossura das linhas
     fill(r, g, b);//preenchimento
   }
+  
+  Enemies(int x1, int y1, int x2, int y2, int x3, int y3){
+    
+    triangle(x1, y1, x2, y2, x3, y3);
+  }
 
   void update() {
     render();
     
+    if (Force > 3){
+    Force = 1;
+    }
     Force = Gravity * sin(Angle);
     AngleA = -1 * Force;
     

@@ -14,6 +14,7 @@ PImage normal_icon;
 PImage hard_icon;
 PImage undo_icon;
 PImage play_icon;
+PVector circulo;
 
 boolean sound = true;
 boolean isWalking = false;
@@ -25,6 +26,11 @@ AudioPlayer fase2_song;
 AudioPlayer fase3_song;
 AudioPlayer gameover_song;
 Enemies pendulo;
+Enemies pendulo1;
+Enemies pendulo2;
+Enemies pendulo3;
+Enemies triangulo;
+Enemies triangulo1;
 Button sound_bt;
 Button start_bt;
 Button credits_bt;
@@ -37,7 +43,7 @@ Button play_bt;
 
 PVector finalPoint;
 final PVector defaultPos = new PVector(120, 130);
-Player p = new Player(int(defaultPos.x), int(defaultPos.y), 30, 30);
+Player p = new Player(int(defaultPos.x), int(defaultPos.y), 70, 70);;
 
 void setup() {
   bg = loadImage("bg.png");
@@ -72,6 +78,12 @@ void setup() {
   gameover_song = gerenciador.loadFile("gameover.mp3");
   pendulo = new Enemies(683, 86, 683, 383, 50, 100, 0, 100, 20, 110);
   pendulo.render();
+  pendulo1 = new Enemies(683, 259,683,383,50,150, 0, 100, 20, 110);
+  pendulo1.render();
+  pendulo2 = new Enemies(883, 259,883,383,50,150, 0, 100, 20, 110);
+  pendulo1.render();
+  pendulo3 = new Enemies(283, 259,283,383,50,150, 0, 100, 20, 110);
+  pendulo1.render();
 }
 
 void draw() {
@@ -117,16 +129,13 @@ void initScreen() {
       sound_bt.setClicked(false);
     }
   }
+   if(sound_bt.img == mute_icon) {
+   menu.mute(); 
+ }
 
   if (start_bt.isClicked() == true) {
     if (GameScreen==0) {
       startGame();
-    }
-  }
-
-  if (credits_bt.isClicked() == true) {
-    if (GameScreen==0) {
-      credits();
     }
   }
 }
@@ -137,7 +146,6 @@ void difficultyScreen() {
   start_bt.update();
   start_bt.hide();
   background(255);
-  image(tri, 332, 320);
   sound_bt.update();
   exit_bt.update();
   easy_bt.update();
@@ -175,6 +183,7 @@ void difficultyScreen() {
       fase1();
       clearPath();
       menu.pause();
+      p.setPos(new PVector(60.0, 435.0));
     }
   }
 
@@ -183,6 +192,7 @@ void difficultyScreen() {
       fase2();
       clearPath();
       menu.pause();
+      p.setPos(new PVector(60.0, 435.0));
     }
   }
 
@@ -191,6 +201,7 @@ void difficultyScreen() {
       fase3();
       clearPath();
       menu.pause();
+      p.setPos(new PVector(60.0, 435.0));
     }
   }
 }
@@ -206,8 +217,22 @@ void fase1Screen() {
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
-  gameUI();
-  pendulo.update();
+  fill(150);
+  triangulo = new Enemies(260, 580, 330, 450, 390, 580);
+  triangulo.render();
+  fill(150);
+  triangulo1 = new Enemies(700, 260, 770, 400, 840, 260);
+  triangulo1.render();
+  fill(0);
+  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  fill(0,150,0);
+  circulo = new PVector(1200, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
   fase1_song.play();
   if (isWalking == true) {
     p.followPath();
@@ -239,6 +264,7 @@ void fase1Screen() {
   }
 }
 
+
 /********* FASE 2 *********/
 
 void fase2Screen() {
@@ -251,12 +277,32 @@ void fase2Screen() {
   add_ctrl = true;
   gameUI();
   exit_bt.update();
-  pendulo.update();
   fase2_song.play();
   if (isWalking == true) {
     p.followPath();
     add_ctrl = false;
   }
+  
+   fill(0);
+  triangulo = new Enemies(260, 580, 330, 450, 390, 580);
+  triangulo.render();
+  pendulo1.update();
+  
+  triangulo = new Enemies(960, 580, 1030, 450, 1090, 580);
+  triangulo.render();
+  
+  
+  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  
+   fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
+  
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
@@ -272,6 +318,9 @@ void fase2Screen() {
       sound_bt.setClicked(false);
     }
   }
+   if(sound_bt.img == mute_icon) {
+   fase2_song.mute(); 
+ }
 
   if (exit_bt.isClicked() == true) {
     if (GameScreen==4) {
@@ -289,17 +338,40 @@ void fase3Screen() {
   hard_bt.update();
   hard_bt.hide();
   //image(bg, 0, 0);
-  background(255, 0, 0);
+  background(150, 150, 0);
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
   gameUI();
-  pendulo.update();
   fase3_song.play();
   if (isWalking == true) {
     p.followPath();
     add_ctrl = false;
   }
+  
+    
+   fill(0);
+  
+  triangulo = new Enemies(460, 580, 530, 450, 590, 580);
+  triangulo.render();
+    pendulo2.update();
+  pendulo3.update();
+  
+  triangulo = new Enemies(760, 580, 1030, 500, 1090, 580);
+  triangulo.render();
+  
+  
+  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  
+   fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  gameUI();
+  
+  
   if (sound_bt.isClicked() == true) {
     if (sound == true) {
       sound_bt.setImg(mute_icon);
@@ -315,6 +387,9 @@ void fase3Screen() {
       sound_bt.setClicked(false);
     }
   }
+   if(sound_bt.img == mute_icon) {
+   fase3_song.mute(); 
+ }
 
   if (exit_bt.isClicked() == true) {
     if (GameScreen==5) {
@@ -402,6 +477,7 @@ void gameUI() {
 }
 
 
+
 void mouseClicked() {
   if (undo_bt.isClicked() == true) {
     removePoints();
@@ -410,6 +486,9 @@ void mouseClicked() {
     if (play_bt.isClicked() == true) {
       isWalking = true;
       add_ctrl = false;
+    }
+    if(credits_bt.isClicked() == true){
+     credits();
     }
   }
 }
