@@ -116,6 +116,26 @@ void Check() {
       p.setPos(new PVector(60.0, 435.0));
     } else if(GameScreen == 5){
       credits();
+    } else if (GameScreen == 6) {
+      fase5();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if (GameScreen == 7) {
+      fase6();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if(GameScreen == 8){
+      credits();
+    } else if (GameScreen == 9) {
+      fase8();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if (GameScreen == 10) {
+      fase9();
+      clearPath();
+      p.setPos(new PVector(60.0, 435.0));
+    } else if(GameScreen == 11){
+      credits();
     }
-  }
+   }   
 }

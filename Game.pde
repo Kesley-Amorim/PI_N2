@@ -78,11 +78,11 @@ void setup() {
   gameover_song = gerenciador.loadFile("gameover.mp3");
   pendulo = new Enemies(683, 86, 683, 383, 50, 100, 0, 100, 20, 110);
   pendulo.render();
-  pendulo1 = new Enemies(683, 259,683,383,50,150, 0, 100, 20, 110);
+  pendulo1 = new Enemies(683, 259, 683, 383, 50, 150, 0, 100, 20, 110);
   pendulo1.render();
-  pendulo2 = new Enemies(883, 259,883,383,50,150, 0, 100, 20, 110);
+  pendulo2 = new Enemies(1092, 259, 1092, 383, 50, 150, 0, 100, 20, 110);
   pendulo1.render();
-  pendulo3 = new Enemies(283, 259,283,383,50,150, 0, 100, 20, 110);
+  pendulo3 = new Enemies(273, 259, 273, 383, 50, 150, 0, 100, 20, 110);
   pendulo1.render();
 }
 
@@ -99,7 +99,19 @@ void draw() {
     fase2Screen();
   } else if (GameScreen == 5) {
     fase3Screen();
-  }
+  } else if (GameScreen == 6) {
+    fase4Screen();
+  } else if (GameScreen == 7) {
+    fase5Screen();
+  } else if (GameScreen == 8) {
+    fase6Screen();
+  } else if (GameScreen == 9) {
+    fase7Screen();
+  } else if (GameScreen == 10) {
+    fase8Screen();
+  } else if (GameScreen == 11) {
+    fase9Screen();
+  } 
 }
 
 /********* MENU INICIAL *********/
@@ -189,7 +201,7 @@ void difficultyScreen() {
 
   if (normal_bt.isClicked() == true) {
     if (GameScreen==1) {
-      fase2();
+      fase4();
       clearPath();
       menu.pause();
       p.setPos(new PVector(60.0, 435.0));
@@ -198,7 +210,7 @@ void difficultyScreen() {
 
   if (hard_bt.isClicked() == true) {
     if (GameScreen==1) {
-      fase3();
+      fase7();
       clearPath();
       menu.pause();
       p.setPos(new PVector(60.0, 435.0));
@@ -206,29 +218,28 @@ void difficultyScreen() {
   }
 }
 
+/********* Fases Faceis *********/
+
 /********* FASE 1 *********/
 
 void fase1Screen() {
   add_ctrl = true;
   easy_bt.update();
   easy_bt.hide();
-  //image(bg, 0, 0);
   background(255);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
   fill(150);
   triangulo = new Enemies(260, 580, 330, 450, 390, 580);
   triangulo.render();
-  fill(150);
-  triangulo1 = new Enemies(700, 260, 770, 400, 840, 260);
-  triangulo1.render();
-  fill(0);
-  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
-  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
   fill(0,150,0);
-  circulo = new PVector(1200, 440);
+  circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
+  colisao();
   Check();
   
   
@@ -271,8 +282,200 @@ void fase2Screen() {
   add_ctrl = true;
   normal_bt.update();
   normal_bt.hide();
-  //image(bg, 0, 0);
+  background(255);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  add_ctrl = true;
+  gameUI();
+  exit_bt.update();
+  fase1_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  
+   fill(0);
+  triangulo = new Enemies(260, 580, 330, 450, 390, 580);
+  triangulo.render();
+  pendulo1.update();
+  fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
+  
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase1_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase1_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+   if(sound_bt.img == mute_icon) {
+   fase1_song.mute(); 
+ }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==4) {
+      retMenu();
+      fase1_song.pause();
+      menu.play();
+    }
+  }
+}
+
+/********* FASE 3 *********/
+
+void fase3Screen() {
+  add_ctrl = true;
+  hard_bt.update();
+  hard_bt.hide();
+  background(255);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  exit_bt.update();
+  add_ctrl = true;
+  gameUI();
+  fase1_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  
+    
+   fill(0);
+  
+  triangulo = new Enemies(460, 580, 530, 450, 590, 580);
+  triangulo.render();
+    pendulo2.update();
+  pendulo3.update();
+  
+   
+  fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  gameUI();
+  
+  
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase1_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase1_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+   if(sound_bt.img == mute_icon) {
+   fase1_song.mute(); 
+ }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==5) {
+      retMenu();
+      fase1_song.pause();
+      menu.play();
+    }
+  }
+}
+
+/********* Fases Normal *********/
+
+
+/********* FASE 4 *********/
+
+void fase4Screen() {
+  add_ctrl = true;
+  normal_bt.update();
+  normal_bt.hide();
   background(0, 255, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  exit_bt.update();
+  add_ctrl = true;
+  fill(150);
+  triangulo = new Enemies(260, 580, 330, 450, 390, 580);
+  triangulo.render();
+  fill(150);
+  triangulo1 = new Enemies(700, 260, 770, 400, 840, 260);
+  triangulo1.render();
+  fill(0,150,0);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
+  fase2_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase2_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase2_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==6) {
+      retMenu();
+      clearPath();
+      fase2_song.pause();
+      menu.play();
+    }
+  }
+}
+
+
+/********* FASE 5 *********/
+
+void fase5Screen() {
+  add_ctrl = true;
+  normal_bt.update();
+  normal_bt.hide();
+  background(0, 255, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
   sound_bt.update();
   add_ctrl = true;
   gameUI();
@@ -292,8 +495,6 @@ void fase2Screen() {
   triangulo.render();
   
   
-  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
-  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
   
    fill(0,0,255);
   circulo = new PVector(1300, 440);
@@ -323,7 +524,7 @@ void fase2Screen() {
  }
 
   if (exit_bt.isClicked() == true) {
-    if (GameScreen==4) {
+    if (GameScreen==7) {
       retMenu();
       fase2_song.pause();
       menu.play();
@@ -331,19 +532,22 @@ void fase2Screen() {
   }
 }
 
-/********* FASE 3 *********/
+/********* FASE 6 *********/
 
-void fase3Screen() {
+void fase6Screen() {
   add_ctrl = true;
-  hard_bt.update();
-  hard_bt.hide();
-  //image(bg, 0, 0);
-  background(150, 150, 0);
+  normal_bt.update();
+  normal_bt.hide();
+  background(0, 255, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
   gameUI();
-  fase3_song.play();
+  fase2_song.play();
   if (isWalking == true) {
     p.followPath();
     add_ctrl = false;
@@ -360,11 +564,219 @@ void fase3Screen() {
   triangulo = new Enemies(760, 580, 1030, 500, 1090, 580);
   triangulo.render();
   
+   
+  fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
   
-  quad(0, 105, 0, 260, 1366, 260, 1366, 105);
+  gameUI();
+  
+  
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase2_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase2_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+   if(sound_bt.img == mute_icon) {
+   fase2_song.mute(); 
+ }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==8) {
+      retMenu();
+      fase2_song.pause();
+      menu.play();
+    }
+  }
+}
+
+/********* Fases Dificil *********/
+
+
+/********* FASE 7 *********/
+
+void fase7Screen() {
+  add_ctrl = true;
+  hard_bt.update();
+  hard_bt.hide();
+  background(150, 150, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
   quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  exit_bt.update();
+  add_ctrl = true;
+  fill(0);
+  triangulo = new Enemies(272, 580, 342, 400, 412, 580);
+  triangulo.render();
   
-   fill(0,0,255);
+  triangulo = new Enemies(613, 260, 683, 440, 753, 260);
+  triangulo.render();
+  
+  triangulo = new Enemies(954, 580, 1024, 400, 1094, 580);
+  triangulo.render();
+
+  fill(0,150,0);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
+  fase3_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase3_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase3_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==9) {
+      retMenu();
+      clearPath();
+      fase3_song.pause();
+      menu.play();
+    }
+  }
+}
+
+
+/********* FASE 8 *********/
+
+void fase8Screen() {
+  add_ctrl = true;
+  hard_bt.update();
+  hard_bt.hide();
+  background(150, 150, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  add_ctrl = true;
+  gameUI();
+  exit_bt.update();
+  fase3_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  
+  fill(0);
+  
+  triangulo = new Enemies(203, 260, 273, 440, 343, 260);
+  triangulo.render();
+  
+  triangulo = new Enemies(406, 580, 476, 450, 546, 580);
+  triangulo.render();
+  
+  triangulo = new Enemies(819, 580, 889, 450, 959, 580);
+  triangulo.render();
+  
+  triangulo = new Enemies(1022, 260, 1092, 440, 1162, 260);
+  triangulo.render();
+  
+  pendulo1.update();
+  
+  
+  fill(0,0,255);
+  circulo = new PVector(1300, 440);
+  circle(circulo.x,circulo.y, 60);
+  Check();
+  
+  
+   gameUI();
+  
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      fase3_song.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      fase3_song.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+   if(sound_bt.img == mute_icon) {
+   fase3_song.mute(); 
+ }
+
+  if (exit_bt.isClicked() == true) {
+    if (GameScreen==10) {
+      retMenu();
+      fase3_song.pause();
+      menu.play();
+    }
+  }
+}
+
+/********* FASE 9 *********/
+
+void fase9Screen() {
+  add_ctrl = true;
+  hard_bt.update();
+  hard_bt.hide();
+  background(150, 150, 0);
+  fill(0);
+  quad(0, 0, 0, 260, 1366, 260, 1366, 0);
+  quad(0, 580, 0, 768, 1366, 768, 1366, 580);
+  sound_bt.update();
+  sound_bt.update();
+  exit_bt.update();
+  add_ctrl = true;
+  gameUI();
+  fase3_song.play();
+  if (isWalking == true) {
+    p.followPath();
+    add_ctrl = false;
+  }
+  
+  fill(0);
+  
+  
+  triangulo = new Enemies(406, 580, 546, 450, 546, 580);
+  triangulo.render();
+  
+  triangulo = new Enemies(819, 580, 819, 450, 959, 580);
+  triangulo.render();
+  
+  
+  pendulo1.update();
+  pendulo2.update();
+  pendulo3.update();
+  
+  fill(0,0,255);
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
@@ -392,7 +804,7 @@ void fase3Screen() {
  }
 
   if (exit_bt.isClicked() == true) {
-    if (GameScreen==5) {
+    if (GameScreen==11) {
       retMenu();
       fase3_song.pause();
       menu.play();
@@ -408,6 +820,9 @@ void creditsScreen() {
   image(ra, 0, 0);
   sound_bt.update();
   exit_bt.update();
+  fase1_song.pause();
+  fase2_song.pause();
+  fase3_song.pause();
   menu.play();
 
   if (sound_bt.isClicked() == true) {
@@ -425,6 +840,9 @@ void creditsScreen() {
       sound_bt.setClicked(false);
     }
   }
+  if(sound_bt.img == mute_icon) {
+   menu.mute(); 
+ }
 
   if (exit_bt.isPressed() == true) {
     if (GameScreen==2) {
@@ -466,6 +884,37 @@ void fase3() {
   clearPath();
 }
 
+void fase4() {
+  GameScreen=6;
+  clearPath();
+}
+
+void fase5() {
+  GameScreen=7;
+  clearPath();
+}
+
+void fase6() {
+  GameScreen=8;
+  clearPath();
+}
+
+void fase7() {
+  GameScreen=9;
+  clearPath();
+}
+
+void fase8() {
+  GameScreen=10;
+  clearPath();
+}
+
+void fase9() {
+  GameScreen=11;
+  clearPath();
+}
+
+
 /********* CRIA UI *********/
 
 void gameUI() {
@@ -476,6 +925,14 @@ void gameUI() {
   p.update();
 }
 
+
+void colisao() { // Criando a função Colisão
+if (p.Pos.x > 0 && p.Pos.x < 1366 && p.Pos.y > 260 && p.Pos.y < 768) { // Criando a Colisão dos pontos X e Y do Mouse
+
+} else {
+  print("colidiu");
+}
+}
 
 
 void mouseClicked() {
