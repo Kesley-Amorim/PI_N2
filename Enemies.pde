@@ -1,7 +1,7 @@
 class Enemies {
 
-  PVector Origin = new PVector(0, 0);
-  PVector Bob = new PVector(0, 0);
+  PVector Origin = new PVector();
+  PVector Bob = new PVector();
   float Angle;
   int Len;
   int SizeCircle;
@@ -9,7 +9,6 @@ class Enemies {
   float AngleA;
   float Gravity = 0.0005;
   float Force;
-  
   
 
   Enemies(int xo, int yo, int xb, int yb, int sb, int len, float vel,int r, int g, int b) {
@@ -21,7 +20,6 @@ class Enemies {
     SizeCircle = sb;
     AngleV = vel;
     
-
     Angle = (PI/4);
     Len = len;
 
@@ -30,17 +28,27 @@ class Enemies {
     fill(r, g, b);//preenchimento
   }
   
-  Enemies(int x1, int y1, int x2, int y2, int x3, int y3){
-    
+  Enemies(int x1, int y1, int x2, int y2, int x3, int y3){    
     triangle(x1, y1, x2, y2, x3, y3);
   }
 
   void update() {
     render();
     
-    if (Force > 3){
+    if (Force > 2){
     Force = 1;
     }
+    
+    /*
+    if (AngleA > 200 || AngleA < 340){
+    AngleA = 1;
+    } */
+    
+        
+    if (AngleV > 20){
+    AngleV = 1;
+    }
+    
     Force = Gravity * sin(Angle);
     AngleA = -1 * Force;
     
@@ -52,10 +60,18 @@ class Enemies {
     
   }
   
+  public PVector getPos() {
+    return Bob;
+  }
+ 
+    
   void render(){
     line(Origin.x, Origin.y, Bob.x, Bob.y);//(xi,yi,xf,yf)
     circle(Bob.x, Bob.y, SizeCircle);//(x,y,size)
   }
-
+  
   
 }
+
+  
+  

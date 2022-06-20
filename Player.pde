@@ -19,6 +19,7 @@ class Player {
     this.size_x = size_x;
     this.size_y = size_y;
   }
+  
 
   private void setPos(PVector pos) {
     if (!path.isEmpty()) {
@@ -31,9 +32,12 @@ class Player {
     this.Pos = pos;
   }
 
+  public PVector getPos() {
+    return Pos;
+  }
+
   //methods
   void render() {
-
 
     pushMatrix();
 
@@ -114,7 +118,7 @@ void Check() {
       fase3();
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
-    } else if(GameScreen == 5){
+    } else if (GameScreen == 5) {
       credits();
     } else if (GameScreen == 6) {
       fase5();
@@ -124,7 +128,7 @@ void Check() {
       fase6();
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
-    } else if(GameScreen == 8){
+    } else if (GameScreen == 8) {
       credits();
     } else if (GameScreen == 9) {
       fase8();
@@ -134,8 +138,8 @@ void Check() {
       fase9();
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
-    } else if(GameScreen == 11){
+    } else if (GameScreen == 11) {
       credits();
     }
-   }   
+  }
 }

@@ -15,6 +15,9 @@ PImage hard_icon;
 PImage undo_icon;
 PImage play_icon;
 PVector circulo;
+PVector colidir1;
+PVector colidir2;
+PVector colidir3;
 
 boolean sound = true;
 boolean isWalking = false;
@@ -111,7 +114,8 @@ void draw() {
     fase8Screen();
   } else if (GameScreen == 11) {
     fase9Screen();
-  } 
+  }
+    
 }
 
 /********* MENU INICIAL *********/
@@ -237,8 +241,8 @@ void fase1Screen() {
   triangulo = new Enemies(260, 580, 330, 450, 390, 580);
   triangulo.render();
   fill(0,150,0);
-  circulo = new PVector(1300, 440);
-  circle(circulo.x,circulo.y, 60);
+  circulo = new PVector(1300, 440); //criando check point
+  circle(circulo.x,circulo.y, 60); 
   colisao();
   Check();
   
@@ -264,6 +268,10 @@ void fase1Screen() {
       sound_bt.setClicked(false);
     }
   }
+  
+  if (sound_bt.img == mute_icon ) {
+   fase1_song.mute(); 
+  }
 
   if (exit_bt.isClicked() == true) {
     if (GameScreen==3) {
@@ -273,6 +281,8 @@ void fase1Screen() {
       menu.play();
     }
   }
+  
+  
 }
 
 
@@ -305,6 +315,14 @@ void fase2Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  
+  colidir1 = new PVector(pendulo1.Bob.x, pendulo1.Bob.y);
+  if(p.isOnCircle(colidir1)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   
    gameUI();
@@ -363,7 +381,7 @@ void fase3Screen() {
   
   triangulo = new Enemies(460, 580, 530, 450, 590, 580);
   triangulo.render();
-    pendulo2.update();
+  pendulo2.update();
   pendulo3.update();
   
    
@@ -371,6 +389,26 @@ void fase3Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  
+  colidir2 = new PVector(pendulo2.Bob.x, pendulo2.Bob.y);
+  colidir3 = new PVector(pendulo3.Bob.x, pendulo3.Bob.y);
+  if(p.isOnCircle(colidir2)||p.isOnCircle(colidir3)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
+  
+  
+  
+  
+  
+  circulo = new PVector(pendulo3.Bob.x, pendulo1.Bob.y);
+  if(p.isOnCircle(circulo)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   gameUI();
   
@@ -453,6 +491,10 @@ void fase4Screen() {
       sound_bt.setClicked(false);
     }
   }
+  
+  if (sound_bt.img == mute_icon ) {
+   fase2_song.mute(); 
+  }
 
   if (exit_bt.isClicked() == true) {
     if (GameScreen==6) {
@@ -500,6 +542,13 @@ void fase5Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  colidir1 = new PVector(pendulo1.Bob.x, pendulo1.Bob.y);
+  if(p.isOnCircle(colidir1)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   
    gameUI();
@@ -569,6 +618,14 @@ void fase6Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  colidir2 = new PVector(pendulo2.Bob.x, pendulo2.Bob.y);
+  colidir3 = new PVector(pendulo3.Bob.x, pendulo3.Bob.y);
+  if(p.isOnCircle(colidir2)||p.isOnCircle(colidir3)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   gameUI();
   
@@ -655,6 +712,10 @@ void fase7Screen() {
       sound_bt.setClicked(false);
     }
   }
+  
+  if (sound_bt.img == mute_icon ) {
+   fase3_song.mute(); 
+  }
 
   if (exit_bt.isClicked() == true) {
     if (GameScreen==9) {
@@ -709,6 +770,13 @@ void fase8Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  colidir1 = new PVector(pendulo1.Bob.x, pendulo1.Bob.y);
+  if(p.isOnCircle(colidir1)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   
    gameUI();
@@ -780,6 +848,15 @@ void fase9Screen() {
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+  
+  colidir1 = new PVector(pendulo1.Bob.x, pendulo1.Bob.y);
+  colidir2 = new PVector(pendulo2.Bob.x, pendulo2.Bob.y);
+  colidir3 = new PVector(pendulo3.Bob.x, pendulo3.Bob.y);
+  if(p.isOnCircle(colidir1)||p.isOnCircle(colidir2)||p.isOnCircle(colidir3)) {
+    retMenu();
+      fase1_song.pause();
+      menu.play();
+  }
   
   gameUI();
   
@@ -949,3 +1026,10 @@ void mouseClicked() {
     }
   }
 }
+
+private boolean isOnCircle(PVector point) {
+    final double epsilon = 30;
+    double delta_x = Math.abs(p.Pos.x - point.x);
+    double delta_y = Math.abs(p.Pos.y - point.y);
+    return delta_x <= epsilon && delta_y <= epsilon;
+  }
