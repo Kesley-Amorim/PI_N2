@@ -112,33 +112,42 @@ void Check() {
   if (p.isOnCircle(circulo)) {
     if (GameScreen == 3) {
       fase2();
+      score += 100;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 4) {
       fase3();
+      score += 100;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 5) {
+      score +=100;
       credits();
     } else if (GameScreen == 6) {
       fase5();
+      score += 150;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 7) {
       fase6();
+      score += 150;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 8) {
+      score += 150;
       credits();
     } else if (GameScreen == 9) {
       fase8();
+      score += 200;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 10) {
       fase9();
+      score += 200;
       clearPath();
       p.setPos(new PVector(60.0, 435.0));
     } else if (GameScreen == 11) {
+      score += 200;
       credits();
     }
   }

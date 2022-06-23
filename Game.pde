@@ -1,9 +1,12 @@
 import ddf.minim.*;
 
 int GameScreen = 0;
+int score = 0;
+int Highscore = 0;
 PImage bg;
 PImage ra;
 PImage tri;
+PImage gameover_image;
 PImage sound_icon;
 PImage mute_icon;
 PImage start_icon;
@@ -63,6 +66,7 @@ void setup() {
   hard_icon = loadImage("hard.png");
   undo_icon = loadImage("undobt.png");
   play_icon = loadImage("playbt.png");
+  gameover_image = loadImage("gameover.jpg");
   play_bt = new Button(play_icon, 727, 680);
   undo_bt = new Button(undo_icon, 627, 680);
   sound_bt = new Button(sound_icon, 1296, 43);
@@ -114,8 +118,12 @@ void draw() {
     fase8Screen();
   } else if (GameScreen == 11) {
     fase9Screen();
+  } else if (GameScreen == 12) {
+    gameoverScreen();
   }
-    
+    if( score > Highscore){
+      Highscore = score;
+    }
 }
 
 /********* MENU INICIAL *********/
@@ -228,19 +236,20 @@ void difficultyScreen() {
 
 void fase1Screen() {
   add_ctrl = true;
+  score = 0;
   easy_bt.update();
   easy_bt.hide();
   background(255);
   fill(0);
   quad(0, 0, 0, 260, 1366, 260, 1366, 0);
   quad(0, 580, 0, 768, 1366, 768, 1366, 580);
-  sound_bt.update();
+   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
-  fill(150);
+  fill(0);
   triangulo = new Enemies(260, 580, 330, 450, 390, 580);
   triangulo.render();
-  fill(0,150,0);
+  fill(0,0,255);
   circulo = new PVector(1300, 440); //criando check point
   circle(circulo.x,circulo.y, 60); 
   colisao();
@@ -300,6 +309,7 @@ void fase2Screen() {
   sound_bt.update();
   add_ctrl = true;
   gameUI();
+  colisao();
   exit_bt.update();
   fase1_song.play();
   if (isWalking == true) {
@@ -318,8 +328,9 @@ void fase2Screen() {
   
   
   colidir1 = new PVector(pendulo1.Bob.x, pendulo1.Bob.y);
+  
   if(p.isOnCircle(colidir1)) {
-    retMenu();
+      gameover();
       fase1_song.pause();
       menu.play();
   }
@@ -370,6 +381,7 @@ void fase3Screen() {
   exit_bt.update();
   add_ctrl = true;
   gameUI();
+   colisao();
   fase1_song.play();
   if (isWalking == true) {
     p.followPath();
@@ -448,6 +460,7 @@ void fase3Screen() {
 
 void fase4Screen() {
   add_ctrl = true;
+  score = 0;
   normal_bt.update();
   normal_bt.hide();
   background(0, 255, 0);
@@ -458,19 +471,22 @@ void fase4Screen() {
   sound_bt.update();
   exit_bt.update();
   add_ctrl = true;
-  fill(150);
+  fill(0);
   triangulo = new Enemies(260, 580, 330, 450, 390, 580);
   triangulo.render();
-  fill(150);
+  fill(0);
   triangulo1 = new Enemies(700, 260, 770, 400, 840, 260);
   triangulo1.render();
-  fill(0,150,0);
+  fill(0,0,255);
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
+   colisao();
   
   
    gameUI();
+   
+   
   fase2_song.play();
   if (isWalking == true) {
     p.followPath();
@@ -521,6 +537,7 @@ void fase5Screen() {
   sound_bt.update();
   add_ctrl = true;
   gameUI();
+   colisao();
   exit_bt.update();
   fase2_song.play();
   if (isWalking == true) {
@@ -596,6 +613,7 @@ void fase6Screen() {
   exit_bt.update();
   add_ctrl = true;
   gameUI();
+   colisao();
   fase2_song.play();
   if (isWalking == true) {
     p.followPath();
@@ -665,6 +683,7 @@ void fase6Screen() {
 
 void fase7Screen() {
   add_ctrl = true;
+  score = 0;
   hard_bt.update();
   hard_bt.hide();
   background(150, 150, 0);
@@ -676,6 +695,7 @@ void fase7Screen() {
   exit_bt.update();
   add_ctrl = true;
   fill(0);
+   colisao();
   triangulo = new Enemies(272, 580, 342, 400, 412, 580);
   triangulo.render();
   
@@ -685,7 +705,7 @@ void fase7Screen() {
   triangulo = new Enemies(954, 580, 1024, 400, 1094, 580);
   triangulo.render();
 
-  fill(0,150,0);
+  fill(0,0,255);
   circulo = new PVector(1300, 440);
   circle(circulo.x,circulo.y, 60);
   Check();
@@ -742,6 +762,7 @@ void fase8Screen() {
   sound_bt.update();
   add_ctrl = true;
   gameUI();
+   colisao();
   exit_bt.update();
   fase3_song.play();
   if (isWalking == true) {
@@ -824,6 +845,7 @@ void fase9Screen() {
   exit_bt.update();
   add_ctrl = true;
   gameUI();
+   colisao();
   fase3_song.play();
   if (isWalking == true) {
     p.followPath();
@@ -928,6 +950,43 @@ void creditsScreen() {
   }
 }
 
+void gameoverScreen() {
+  credits_bt.update();
+  credits_bt.hide();
+  image( gameover_image, 0, 0);
+  sound_bt.update();
+  exit_bt.update();
+  fase1_song.pause();
+  fase2_song.pause();
+  fase3_song.pause();
+  menu.play();
+
+  if (sound_bt.isClicked() == true) {
+    if (sound == true) {
+      sound_bt.setImg(mute_icon);
+      sound_bt.update();
+      menu.mute();
+      sound = false;
+      sound_bt.setClicked(false);
+    } else {
+      sound_bt.setImg(sound_icon);
+      sound_bt.update();
+      menu.unmute();
+      sound = true;
+      sound_bt.setClicked(false);
+    }
+  }
+  if(sound_bt.img == mute_icon) {
+   menu.mute(); 
+ }
+
+  if (exit_bt.isPressed() == true) {
+    if (GameScreen==12) {
+      retMenu();
+    }
+  }
+}
+
 
 
 /********* CHAMA O MENU *********/
@@ -991,6 +1050,10 @@ void fase9() {
   clearPath();
 }
 
+void gameover() {
+  GameScreen=12;
+  clearPath();
+}
 
 /********* CRIA UI *********/
 
@@ -1000,14 +1063,19 @@ void gameUI() {
   drawPoints();
   drawLines();
   p.update();
+  fill(255);
+  textSize(25);
+  textAlign(CENTER);
+  text("Score = "+score,680,150);
+  text("High Score = "+Highscore,670,100);
 }
 
 
 void colisao() { // Criando a função Colisão
 if (p.Pos.x > 0 && p.Pos.x < 1366 && p.Pos.y > 260 && p.Pos.y < 768) { // Criando a Colisão dos pontos X e Y do Mouse
-
+   
 } else {
-  print("colidiu");
+   gameover();
 }
 }
 
@@ -1033,3 +1101,6 @@ private boolean isOnCircle(PVector point) {
     double delta_y = Math.abs(p.Pos.y - point.y);
     return delta_x <= epsilon && delta_y <= epsilon;
   }
+  
+  
+  
